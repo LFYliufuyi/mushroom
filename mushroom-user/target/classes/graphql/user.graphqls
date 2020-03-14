@@ -1,0 +1,57 @@
+#用户
+type User{
+    #编号
+    id:Int
+    #用户名
+    username:String
+    #用户真实姓名
+    realName:String
+    #用户昵称
+    nickName:String
+    #用户角色
+    role:Role
+    #用户性别
+    gender:Gender
+    #头像url
+    avatarUrl:String
+    #城市
+    city:String
+    #省份
+    province:String
+    #国家
+    country:String
+    #小程序openid
+    openId:String
+}
+
+#input用户
+input InputUser{
+    #编号
+    id:Int!
+    #用户名
+    username:String
+    #用户真实姓名
+    realName:String
+    #用户密码
+    password:String
+    #用户角色
+    role:Role
+    #用户性别
+    gender:Gender
+}
+
+
+#用户性别
+enum Gender{
+    #男
+    MAN
+    #女
+    WOMAN
+}
+enum Role{
+    #管理员
+    ADMIN
+    #工作人员
+    WORKER
+}
+

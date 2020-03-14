@@ -1,0 +1,26 @@
+#分页条件
+input PageQuery{
+    keyword:String
+    pageNum:Int!
+    pageSize:Int!
+}
+
+#分页信息
+type PageInfo{
+    #当前页
+    pageNum:Int
+    #每页的数量
+    pageSize:Int
+    #是否为第一页
+    isFirstPage:Boolean
+    #是否为最后一页
+    isLastPage:Boolean
+    #是否有前一页
+    hasPreviousPage:Boolean
+    #是否有下一页
+    hasNextPage:Boolean
+    #总页数
+    pages:Int
+    #总条数
+    totalCount:Int
+}

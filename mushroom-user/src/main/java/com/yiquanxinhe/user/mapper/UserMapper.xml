@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yiquanxinhe.user.mapper.UserMapper">
+    <resultMap id="User" type="com.yiquanxinhe.user.entity.type.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="real_name" property="realName"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="avatar_url" property="avatarUrl"/>
+        <result column="city" property="city"/>
+        <result column="province" property="province"/>
+        <result column="country" property="country"/>
+        <result column="status" property="status"/>
+        <result column="gender" property="gender" typeHandler="com.yiquanxinhe.user.enums.GenderTypeHandler"/>
+        <result column="role" property="role" typeHandler="com.yiquanxinhe.user.enums.RoleTypeHandler"/>
+    </resultMap>
+
+    <update id="updateUser">
+        update t_user
+        <set>
+            <if test="user.username!=null">
+                username = #{user.username},
+            </if>
+            <if test="user.password!=null">
+                password = #{user.password},
+            </if>
+            <if test="user.role!=null">
+                role = #{user.role,typeHandler=com.yiquanxinhe.user.enums.RoleTypeHandler},
+            </if>
+            <if test="user.realName!=null">
+                real_name = #{user.realName},
+            </if>
+            <if test="user.gender!=null">
+                gender = #{user.gender,typeHandler=com.yiquanxinhe.user.enums.GenderTypeHandler},
+            </if>
+        </set>
+        where id = #{user.id}
+    </update>
+
+    <select id="findUserByUsername" resultMap="User">
+        select id,username,real_name,gender,role,nick_name,avatar_url,city,province,country,status
+        from t_user
+        where username = #{username}
+    </select>
+
+    <select id="findUserListByRole" resultMap="User">
+        select id,username,real_name,gender,role,nick_name,avatar_url,city,province,country,status
+        from t_user
+        where role = #{roleValue}
+        <if test="pageQuery.keyword != null">
+            and username like "%"#{pageQuery.keyword}"%"
+        </if>
+        limit ${pageQuery.offset},${pageQuery.pageSize}
+    </select>
+
+    <select id="countForFindUserListByRole" resultType="java.lang.Integer">
+        select count(0)
+        from t_user
+        where role = #{roleValue}
+        <if test="pageQuery.keyword != null">
+            and username like "%"#{pageQuery.keyword}"%"
+        </if>
+    </select>
+
+    <select id="findUserById" resultMap="User">
+        select id,username,real_name,gender,role,nick_name,avatar_url,city,province,country,status
+        from t_user
+        where id = #{id}
+    </select>
+</mapper>

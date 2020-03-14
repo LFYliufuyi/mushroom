@@ -1,0 +1,17 @@
+type Mutation{
+    #用户登录
+    login(username:String!,password:String!):String!
+    #修改用户信息
+    updateUser(user:InputUser):Boolean
+}
+
+type Query{
+    #当前用户
+    currentUser:User
+    #根据id查用户
+    user(id:Int):User
+    #工作人员列表
+    workers(pageQuery:PageQuery):[User]
+    #分页查询
+    pageInfo:PageInfo
+}
